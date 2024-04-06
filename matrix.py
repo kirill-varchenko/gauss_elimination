@@ -26,6 +26,19 @@ class Matrix:
         self._operations: list[ElementaryRowOperation] = []
 
     @property
+    def rows(self) -> int:
+        """Number of rows."""
+        return self._rows
+
+    @property
+    def cols(self) -> int:
+        """Number of cols."""
+        return (self._cols - self._rows) if self._extend else self._cols
+
+    def __getitem__(self, ij: tuple[int, int]) -> Fraction:
+        return self._items[ij[0] - 1][ij[1] - 1]
+
+    @property
     def history(self) -> list[ElementaryRowOperation]:
         """History of applied row operations."""
         return self._operations
@@ -70,9 +83,10 @@ class Matrix:
                     max_len_per_col[j] = len(cell_str)
 
         lines = []
-        proper_columns = self._cols - self._rows
+
         for row in string_table:
             if self._extend:
+                proper_columns = self._cols - self._rows
                 left_part = [
                     row[j].rjust(max_len_per_col[j]) for j in range(proper_columns)
                 ]

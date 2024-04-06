@@ -1,5 +1,6 @@
 from fractions import Fraction
 
+from auto_eliminator import AutoEliminator
 from elementary_row_operations import RowSum, RowSwap, ScalarMultiplication
 from matrix import Matrix
 
@@ -29,7 +30,7 @@ def display_matrix(matrix: Matrix) -> None:
 
 
 def perform_operations(matrix: Matrix) -> Matrix:
-    print("Input row operations: P, D, T or undo")
+    print("Input row operations: P, D, T, undo or auto")
     n_op = 1
     while True:
         op = None
@@ -40,6 +41,11 @@ def perform_operations(matrix: Matrix) -> Matrix:
                     matrix.undo()
                     display_matrix(matrix)
                     n_op -= 1
+            case ["auto"]:
+                auto_eliminator = AutoEliminator(matrix)
+                auto_eliminator.eliminate()
+                display_matrix(matrix)
+                break
             case ["P", i, j]:
                 op = RowSwap(int(i), int(j))
             case ["D", i, r]:

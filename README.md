@@ -1,3 +1,3 @@
-# Gauss elimination
+# Gaussian elimination
 
-One evening project for training the Gaussian algorithm.
+One evening project to practice the Gaussian algorithm.
